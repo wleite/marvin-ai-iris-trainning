@@ -23,12 +23,14 @@ class MetricsEvaluator(EngineBaseTraining):
         super(MetricsEvaluator, self).__init__(**kwargs)
 
     def execute(self, params, **kwargs):
-        """
-        Setup the metrics with the result of the algorithms used to test the model.
-        Use the self.dataset and self.model prepared in the last actions.
+        from sklearn import metrics  # for checking the model accuracy
 
-        Eg.
+        prediction = self.marvin_model.predict(self.marvin_dataset["test_X"])  # now we pass the testing data to the trained algorithm
+        metrics = metrics.accuracy_score(prediction, self.marvin_dataset["test_Y"])
 
-            self.marvin_metrics = {...}
-        """
-        self.marvin_metrics = {}
+        self.marvin_metrics = {
+            "accuracy": float(metrics)
+        }
+
+        print('The accuracy of the SVM is:', metrics)  # now we check the accuracy of the algorithm.
+

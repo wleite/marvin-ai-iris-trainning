@@ -23,12 +23,24 @@ class TrainingPreparator(EngineBaseDataHandler):
         super(TrainingPreparator, self).__init__(**kwargs)
 
     def execute(self, params, **kwargs):
-        """
-        Setup the dataset with the transformed data that is compatible with the algorithm used to build the model in the next action.
-        Use the self.initial_dataset prepared in the last action as source of data.
+        from sklearn.cross_validation import train_test_split  # to split the dataset for training and testing
 
-        Eg.
+        train, test = train_test_split(self.marvin_initial_dataset, test_size=0.3)  # in this our main data is split into train and test
 
-            self.marvin_dataset = {...}
-        """
-        self.marvin_dataset = {}
+        # the attribute test_size=0.3 splits the data into 70% and 30% ratio. train=70% and test=30%
+        print(train.shape)
+        print(test.shape)
+
+        train_X = train[['SepalLengthCm', 'SepalWidthCm', 'PetalLengthCm', 'PetalWidthCm']]  # taking the training data features
+        train_Y = train.Species  # output of our training data
+
+        test_X = test[['SepalLengthCm', 'SepalWidthCm', 'PetalLengthCm', 'PetalWidthCm']]  # taking test data features
+        test_Y = test.Species  # output value of test data
+
+        self.marvin_dataset = {
+            "train_X": train_X,
+            "train_Y": train_Y,
+            "test_X": test_X,
+            "test_Y": test_Y,
+        }
+

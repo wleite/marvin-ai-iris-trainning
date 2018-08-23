@@ -11,6 +11,7 @@ info:
 servers:
   - url: http://localhost:8000
   - url: http://0.0.0.0:8000
+  - url: http://18.212.244.14:8000
 tags:
   - name: Docker
     description: For Docker users, please use "make docker-build" and "make docker-run" commands in your engine virtualenv to start the server

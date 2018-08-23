@@ -23,12 +23,10 @@ class Trainer(EngineBaseTraining):
         super(Trainer, self).__init__(**kwargs)
 
     def execute(self, params, **kwargs):
-        """
-        Setup the model with the result of the algorithm used to training.
-        Use the self.dataset prepared in the last action as source of data.
+        from sklearn import svm  # for Support Vector Machine (SVM) Algorithm
 
-        Eg.
+        model = svm.SVC()  # select the algorithm
+        model.fit(self.marvin_dataset["train_X"], self.marvin_dataset["train_Y"])  # we train the algorithm with the training data and the training output
 
-            self.marvin_model = {...}
-        """
-        self.marvin_model = {}
+        self.marvin_model = model
+

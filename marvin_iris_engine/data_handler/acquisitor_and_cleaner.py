@@ -23,11 +23,19 @@ class AcquisitorAndCleaner(EngineBaseDataHandler):
         super(AcquisitorAndCleaner, self).__init__(**kwargs)
 
     def execute(self, params, **kwargs):
-        """
-        Setup the initial_dataset with all cleaned data necessary to build your dataset in the next action.
+        import pandas as pd
 
-        Eg.
+        # Using MarvinData utility to download file
+        from marvin_python_toolbox.common.data import MarvinData
 
-            self.marvin_initial_dataset = {...}
-        """
-        self.marvin_initial_dataset = {}
+        # getting the initial data set
+        file_path = MarvinData.download_file(url="https://s3.amazonaws.com/marvin-engines-data/Iris.csv")
+
+        iris = pd.read_csv(file_path)
+
+        iris.drop('Id', axis=1, inplace=True)
+
+        print(iris.head(2))
+
+        self.marvin_initial_dataset = iris
+
